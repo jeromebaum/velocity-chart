@@ -1,0 +1,9 @@
+git show 'master@{2 weeks ago}':bugs/ | \
+grep 'issue-.*\.yaml' | \
+sed -e 's!^!master"@{2 weeks ago}":bugs/!' | \
+xargs git show | \
+grep '^disposition: '
+
+# even faster:
+git grep '^disposition: ' 'master@{2 weeks ago}' -- bugs/ | \
+grep ':bugs/issue-[0-9a-f]\+\.yaml'
